@@ -1,0 +1,8 @@
+<div>
+  <div>
+    <mat-icon id="mat-icon" (click)="closeme()">close</mat-icon>
+    <span class="content-span">{{data.message}}</span>
+    <button mat-flat-button id="no-button" (click)="closeme()">No</button>
+    <button mat-flat-button id="yes-button" [mat-dialog-close]="true">Yes</button>
+  </div>
+</div>

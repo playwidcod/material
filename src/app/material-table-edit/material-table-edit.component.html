@@ -1,0 +1,57 @@
+<br>
+<mat-card>Material Form</mat-card> 
+ <!-- {{register.value| json}}
+{{register.valid}} -->
+
+<div class="mat-elevation-z8">
+    <form style="padding: 20px;" class="example-form"  #f="ngForm" [formGroup]="register" novalidate>
+        <mat-label>Name :</mat-label>
+          <mat-form-field class="example-full-width">
+            <input formControlName="name" matInput placeholder="Name" name="name" (keydown.space)="$event.preventDefault()">
+          </mat-form-field>
+          <br> 
+          <mat-label>Age :</mat-label>
+            <mat-form-field>
+              <input matInput [matDatepicker]="myDatepicker" formControlName="age" placeholder="Age" name="age" (keydown.space)="$event.preventDefault()"> 
+              <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+              <mat-datepicker #myDatepicker></mat-datepicker>
+            </mat-form-field><span>Your age : {{your_age}}</span>
+            <br>
+            <mat-label>Email :</mat-label>
+            <mat-form-field class="example-full-width">
+                <div *ngIf="id;else em">
+                    <input formControlName="email" matInput placeholder="Email" name="email">
+                </div>
+                <ng-template #em>
+                    <input formControlName="email" matInput placeholder="Email" name="email" (keydown.space)="$event.preventDefault()" (keyup)="emailcheckc(register.value['email'])">
+              </ng-template>
+              </mat-form-field> 
+              <span style="color:red;">{{alertt}}</span>
+              <span style="color:red;">{{check_email_response}}</span>
+              <br>
+              <mat-label>Password :</mat-label>
+              <mat-form-field>
+                  <input formControlName="password" matInput placeholder="Enter your password" name="password" [type]="hide ? 'text' : 'password'" (keydown.space)="$event.preventDefault()">
+                  <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </mat-form-field>
+                <br>
+                <mat-label>Address :</mat-label>
+                <mat-form-field class="example-full-width">
+                    <input formControlName="address" matInput placeholder="Address" name="address">
+                  </mat-form-field>
+                  <br>
+                  <mat-label>City :</mat-label>
+                  <mat-form-field>
+                    <mat-select [(value)]="selected"  formControlName="city" matInput placeholder="City" name="city">
+                      <mat-option value="{{cty}}" *ngFor="let cty of selectOption">{{cty}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                    <br>
+                    <div *ngIf="id;else reg">
+                        <button mat-raised-button (click)="register.valid && update(register.value)">Update</button>
+                    </div>
+                    <ng-template #reg>
+                        <button mat-raised-button (click)="register.valid && registernew(register.value)">Register</button>
+                    </ng-template>
+        </form>
+  </div>

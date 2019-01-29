@@ -1,0 +1,65 @@
+<h1>{{protitle}}</h1>
+<style>
+input.is-invalid{
+    border-color:red;
+}
+label{
+    margin-left: 10px;
+}
+input{
+    margin-left:10px;
+}
+span{
+    color:red;
+}
+</style>
+
+<form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+        <!-- {{f.form.valid}} -->
+            
+    <label>Name     : </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="text" name="name" #name="ngModel" [class.is-invalid]="name.invalid && name.touched" [(ngModel)]="user.name" required>
+    &nbsp;<span *ngIf="name.dirty && name.invalid">Name is invalid</span>
+    <br>
+    <label>D.O.B      : </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="date" name="age" #age="ngModel" [class.is-invalid]="age.invalid && age.touched" [(ngModel)]="user.age" required>
+    &nbsp;<span *ngIf="age.dirty && age.invalid">Age is Empty</span>
+
+    <br>
+    <label>Email    : </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="email" name="email" email="true" #email="ngModel" [class.is-invalid]="email.invalid && email.touched" [(ngModel)]="user.email" (change)="emailcheck()" required>
+    &nbsp;<span *ngIf="email.dirty && email.invalid">Email is invalid</span>
+    &nbsp;<span *ngIf="email.touched && !email.valid">not a valid email</span>
+    &nbsp;<span *ngIf="em > 0">Email already exists</span>
+    <br>
+    <label>Password :</label>&nbsp;
+    <input type="password" name="password" #password="ngModel" [class.is-invalid]="password.invalid && password.touched" [(ngModel)]="user.password" required>
+    &nbsp;<span *ngIf="password.dirty && password.invalid">Password is invalid</span>
+    
+    <br>
+    <label>Confirm Password :</label>&nbsp;
+    <input type="password" name="confirm" #confirm="ngModel" [class.is-invalid]="confirm.invalid && confirm.touched" [(ngModel)]="user.confirm" required>
+    &nbsp;<span *ngIf="password.value !== confirm.value">Confirm Password and Password not same</span>
+    <br>
+    <label>Address  : </label>&nbsp;&nbsp;
+    <input type="text" name="address" #address="ngModel" [class.is-invalid]="address.invalid && address.touched" [(ngModel)]="user.address" required>
+    &nbsp;<span *ngIf="address.dirty && address.invalid">Address is invalid</span>
+    <br>
+    <label>City     :</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <select name="city" #city="ngModel" [class.is-invalid]="city.invalid && city.touched" [(ngModel)]="user.city" required>
+       <option *ngFor="let item of selectOption">
+      {{item}}
+    </option>
+      </select>
+      &nbsp;<span *ngIf="city.dirty && city.invalid && touched">City is invalid</span>
+      &nbsp;<span *ngIf="city.untouched">Please select a City</span>
+
+    <br>
+    <ng-template [ngIf]="f.form.valid && (password.value == confirm.value) && em == 0" [ngIfElse]="disabled">
+            <input type="submit" name="submit">
+        </ng-template>
+     <ng-template #disabled>
+            <input type="submit" name="submit" disabled>
+     </ng-template>   
+    
+</form>

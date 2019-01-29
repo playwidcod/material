@@ -1,0 +1,5 @@
+<h1>{{protitle}}</h1>
+<table border="1" padding="10">
+  <tr><th>Name</th><th>D.O.B</th><th>Email</th><th>Address</th><th>City</th><th>Edit User</th><th>Delete User</th></tr>
+  <tr *ngFor="let getdata of data" ><td>{{getdata.name}}</td><td>{{getdata.age}}</td><td>{{getdata.email}}</td><td>{{getdata.address}}</td><td>{{getdata.city}}</td><td><a routerLink="/edit_user/{{getdata.id}}">Edit</a></td><td><button (click)="deleteme(getdata)">Delete</button></td></tr>
+  </table>
